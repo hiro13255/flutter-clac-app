@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'dart:async';
 import 'button.dart';
 
 class ResultField extends StatefulWidget {
@@ -8,7 +8,24 @@ class ResultField extends StatefulWidget {
 }
 
 class _ResultFieldState extends State<ResultField> {
-  String _figure = '1+1';
+  String _figure = '';
+
+  void _UpdateText(String selectButton) {
+    setState(() {
+      if (selectButton == '=' || selectButton == 'C') {
+        _figure = '';
+      } else {
+        _figure += selectButton;
+      }
+    });
+  }
+
+  static final controller = StreamController<String>();
+
+  @override
+  void initState() {
+    controller.stream.listen((event) => _UpdateText(event));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,5 +77,13 @@ class KeyBord extends StatelessWidget {
   }
 }
 
+class TextUpdate {
+  String a;
+  TextUpdate({this.a});
+
+  void Execute() {
+    _ResultFieldState.controller.sink.add(this.a);
+  }
+}
 
 

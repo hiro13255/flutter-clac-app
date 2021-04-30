@@ -1,9 +1,13 @@
 //ボタンUI
+import 'package:calc_app/top_page.dart';
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
   final _key;
   Button(this._key);
+
+  var _textUpdate = new TextUpdate();
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,8 @@ class Button extends StatelessWidget {
             )
         ),
         onPressed: () {
-
+          _textUpdate.a = _key;
+          _textUpdate.Execute();
         },
       ),
     );
