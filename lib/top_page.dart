@@ -32,11 +32,12 @@ class _ResultFieldState extends State<ResultField> {
     return Expanded(
       flex: 1,
       child: Container(
+        color: Colors.grey,
         child: Align(
           alignment: Alignment.centerRight,
           child: Text(
             _figure,
-            style: TextStyle(fontSize: 60, color: Colors.white),
+            style: TextStyle(fontSize: 60, color: Colors.black),
           ),
         ),
       ),
