@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'button.dart';
+import 'calculation.dart';
 
 class ResultField extends StatefulWidget {
   @override
@@ -12,19 +13,27 @@ class _ResultFieldState extends State<ResultField> {
 
   void _UpdateText(String selectButton) {
     setState(() {
-      if (selectButton == '=' || selectButton == 'C') {
+      if (selectButton == 'C') {
         _figure = '';
-      } else {
+      } else if (selectButton == '=') {
+        _figure = '';
+        var anser = Calculator.Execute();
+        controller.sink.add(anser);
+      } else if (selectButton == 'e') {
+        _figure = 'Error';
+      }
+      else {
         _figure += selectButton;
       }
     });
   }
 
-  static final controller = StreamController<String>();
+  static final controller = StreamController.broadcast();
 
   @override
   void initState() {
     controller.stream.listen((event) => _UpdateText(event));
+    controller.stream.listen((event) => Calculator.GetKey(event));
   }
 
   @override
@@ -58,10 +67,9 @@ class KeyBord extends StatelessWidget {
             crossAxisCount: 4,
             mainAxisSpacing: 3,
             crossAxisSpacing: 3,
-            childAspectRatio:1.2,
-            //padding: const EdgeInsets.all(4),
+            childAspectRatio: 1.2,
             children: [
-              'C', 'a', '%', '÷',
+              'C', ' ', ' ', '÷',
               '7', '8', '9', '×',
               '4', '5', '6', '-',
               '1', '2', '3', '+',
@@ -79,11 +87,11 @@ class KeyBord extends StatelessWidget {
 }
 
 class TextUpdate {
-  String a;
-  TextUpdate({this.a});
+  String displayText;
+  TextUpdate({this.displayText});
 
   void Execute() {
-    _ResultFieldState.controller.sink.add(this.a);
+    _ResultFieldState.controller.sink.add(this.displayText);
   }
 }
 

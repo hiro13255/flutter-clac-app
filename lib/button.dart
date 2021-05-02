@@ -8,7 +8,6 @@ class Button extends StatelessWidget {
 
   var _textUpdate = new TextUpdate();
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +29,10 @@ class Button extends StatelessWidget {
             )
         ),
         onPressed: () {
-          _textUpdate.a = _key;
+          if (_key == ' ') {
+            return;
+          }
+          _textUpdate.displayText = _key;
           _textUpdate.Execute();
         },
       ),
