@@ -24,8 +24,6 @@ class Calculator {
     } else {
       _buffer += selectButton;
     }
-    print(_buffer);
-
   }
 
   static String Execute() {
